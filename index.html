@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基米的冒险世界</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Varela+Round&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fff8fb;
+            --brand-1: #ff8fab;
+            --brand-2: #c5a9ff;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow-lg: 0 30px 80px rgba(255, 143, 171, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Varela Round', 'Segoe UI', sans-serif;
+            background: var(--bg-color);
+            color: #6d6875;
+            overflow-x: hidden;
+        }
+
+        /* ===== 顶部导航栏 ===== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            color: var(--brand-1);
+            text-shadow: 0 0 10px rgba(255, 143, 171, 0.5);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #6d6875;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            background: linear-gradient(135deg, var(--brand-1), #ffb2ca);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* ===== 主要内容区域 ===== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #fffafc 0%, #ffeaf1 100%);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3rem;
+            color: var(--brand-1);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(255, 143, 171, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Fredoka One', cursive;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--brand-1), #ffb2ca);
+            color: white;
+            box-shadow: 0 4px 0 #e87b9b;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #e87b9b;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--brand-2), #d9c8ff);
+            color: white;
+            box-shadow: 0 4px 0 #b794f4;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #b794f4;
+        }
+
+        /* ===== 视频区域 ===== */
+        .video-section {
+            padding: 3rem 2rem;
+            background: white;
+            text-align: center;
+        }
+
+        .video-section h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            color: var(--brand-1);
+            margin-bottom: 1rem;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 400px;
+            background: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: #666;
+        }
+
+        /* ===== 特效区域 ===== */
+        .effects-section {
+            padding: 3rem 2rem;
+            background: var(--bg-color);
+            text-align: center;
+        }
+
+        .effects-section h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            color: var(--brand-1);
+            margin-bottom: 1rem;
+        }
+
+        .effect-btns {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .effect-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            border: 2px solid var(--brand-2);
+            background: transparent;
+            color: var(--brand-2);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .effect-btn:hover {
+            background: var(--brand-2);
+            color: white;
+        }
+
+        /* ===== 页脚 ===== */
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #ffeb3b;
+            text-decoration: underline;
+        }
+
+        /* ===== 黑白模式切换 ===== */
+        .black-white-mode {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: var(--brand-2);
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .black-white-mode:hover {
+            background: #b794f4;
+        }
+
+        /* ===== 弹窗样式 ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            animation: popIn 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close-modal:hover {
+            color: var(--brand-1);
+        }
+
+        /* ===== 鼠标跟随光标 ===== */
+        #cursor {
+            position: fixed;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(255, 237, 242, 0.9), rgba(255, 143, 171, 0.8));
+            border: 2px solid rgba(255, 143, 171, 0.8);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: transform 0.05s linear;
+            z-index: 999;
+            box-shadow: 0 0 22px rgba(255, 143, 171, 0.6);
+            animation: cursorPulse 2s infinite alternate;
+        }
+
+        @keyframes cursorPulse {
+            0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 22px rgba(255, 143, 171, 0.6); }
+            100% { transform: translate(-50%, -50%) scale(1.2); box-shadow: 0 0 35px rgba(255, 143, 171, 0.9); }
+        }
+
+        /* ===== 黑白模式样式 ===== */
+        .bw-mode {
+            filter: grayscale(100%);
+        }
+
+        /* ===== 响应式设计 ===== */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .nav-menu {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .video-container {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .video-container {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 鼠标跟随光标 -->
+    <div id="cursor"></div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="logo">🐾 基米冒险</div>
+        <div class="nav-menu">
+            <a href="index.html">首页</a>
+            <a href="game.html">开始游戏</a>
+            <a href="login.html">登录/注册</a>
+            <a href="#contact">联系我们</a>
+        </div>
+    </nav>
+
+    <!-- 主英雄区域 -->
+    <section class="hero">
+        <h1>欢迎来到基米的冒险世界！</h1>
+        <p>在这里，你可以体验超萌的猫咪大作战，挑战强大的灰尘小怪兽，收集道具，解锁成就，享受无尽的乐趣！</p>
+        <div class="cta-buttons">
+            <a href="game.html" class="btn btn-primary">立即开始游戏</a>
+            <a href="login.html" class="btn btn-secondary">注册新账号</a>
+        </div>
+    </section>
+
+    <!-- 视频区域 -->
+    <section class="video-section">
+  <h2>🎮 游戏预告片</h2>
+  <div class="video-container">
+    <video src="/video/jimi.mp4" controls preload="metadata" style="width:100%; height:auto; border-radius:10px;">
+      您的浏览器不支持视频播放。
+    </video>
+  </div>
+</section>
+
+    <!-- 特效区域 -->
+    <section class="effects-section">
+        <h2>✨ 互动特效</h2>
+        <p>点击下方按钮，体验不同的视觉效果！</p>
+        <div class="effect-btns">
+            <button class="effect-btn" id="toggleBlackWhite">切换黑白模式</button>
+            <button class="effect-btn" id="showAdModal">弹出广告</button>
+            <button class="effect-btn" id="resetCursor">重置光标</button>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        &copy; 2026 基米工作室 | <a href="#">隐私政策</a> | <a href="#">服务条款</a>
+    </footer>
+
+    <!-- 黑白模式切换按钮 -->
+    <div class="black-white-mode" id="bwToggleBtn">切换黑白模式</div>
+
+    <!-- 弹窗 -->
+    <div class="modal" id="adModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>🎉 限时活动！</h3>
+            <p>现在登录游戏，即可获得“淘淘”猫咪皮肤和1000金币奖励！</p>
+            <p>活动截止日期：2026年1月31日</p>
+            <a href="login.html" class="btn btn-primary" style="margin-top: 1rem;">立即领取</a>
+        </div>
+    </div>
+
+    <!-- 背景音乐 -->
+    <audio id="bgMusic" loop>
+        <source src="./audio/jimi.mp3" type="audio/mpeg">
+        您的浏览器不支持音频元素。
+    </audio>
+
+    <script>
+        // ===== 鼠标跟随光标 =====
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // ===== 黑白模式切换 =====
+        const toggleBlackWhiteBtn = document.getElementById('toggleBlackWhite');
+        const bwToggleBtn = document.getElementById('bwToggleBtn');
+        const body = document.body;
+
+        function toggleBlackWhite() {
+            body.classList.toggle('bw-mode');
+            if (body.classList.contains('bw-mode')) {
+                bwToggleBtn.textContent = '恢复彩色模式';
+            } else {
+                bwToggleBtn.textContent = '切换黑白模式';
+            }
+        }
+
+        toggleBlackWhiteBtn.addEventListener('click', toggleBlackWhite);
+        bwToggleBtn.addEventListener('click', toggleBlackWhite);
+
+        // ===== 弹出广告 =====
+        const adModal = document.getElementById('adModal');
+        const closeModal = document.querySelector('.close-modal');
+
+        document.getElementById('showAdModal').addEventListener('click', () => {
+            adModal.style.display = 'flex';
+        });
+
+        closeModal.addEventListener('click', () => {
+            adModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === adModal) {
+                adModal.style.display = 'none';
+            }
+        });
+
+        // ===== 重置光标 =====
+        document.getElementById('resetCursor').addEventListener('click', () => {
+            cursor.style.transform = 'translate(-50%, -50%)';
+            cursor.style.animation = 'cursorPulse 2s infinite alternate';
+        });
+
+        // ===== 背景音乐 =====
+        const bgMusic = document.getElementById('bgMusic');
+        let musicPlaying = false;
+
+        // 页面加载时自动播放，但需要用户交互才能真正播放
+        window.addEventListener('load', () => {
+            bgMusic.volume = 0.4;
+            // 尝试播放，失败是正常的，会在用户点击后播放
+            bgMusic.play().catch(() => {
+                console.log('BGM 自动播放被阻止');
+            });
+        });
+
+        // 在用户第一次点击页面时播放音乐
+        document.addEventListener('click', () => {
+            if (!musicPlaying) {
+                bgMusic.play().catch(e => {
+                    console.log('BGM 播放失败:', e);
+                });
+                musicPlaying = true;
+            }
+        }, { once: true });
+
+        // ===== 页面滚动控制 =====
+        // 监听滚动，确保不超过三个屏幕高度
+        window.addEventListener('scroll', () => {
+            const heroHeight = document.querySelector('.hero').offsetHeight;
+            const videoSectionHeight = document.querySelector('.video-section').offsetHeight;
+            const effectsSectionHeight = document.querySelector('.effects-section').offsetHeight;
+            const totalHeight = heroHeight + videoSectionHeight + effectsSectionHeight;
+
+            // 如果滚动到超过三个屏幕的高度，则禁止进一步滚动
+            const viewportHeight = window.innerHeight;
+            if (window.scrollY > 3 * viewportHeight) {
+                window.scrollTo(0, 3 * viewportHeight);
+            }
+        });
+
+        // ===== 表单验证（示例）=====
+        // 此处可以添加更复杂的表单验证逻辑
+        // 由于这是一个演示，我们只做简单的模拟
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('首页已加载完成');
+        });
+    </script>
+</body>
+</html>

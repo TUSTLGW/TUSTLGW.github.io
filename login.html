@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 / 注册 - 基米冒险</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Varela+Round&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fff8fb;
+            --brand-1: #ff8fab;
+            --brand-2: #c5a9ff;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow-lg: 0 30px 80px rgba(255, 143, 171, 0.35);
+        }
+
+        body {
+            background: var(--bg-color);
+            font-family: 'Varela Round', 'Segoe UI', sans-serif;
+            color: #6d6875;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 400px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 28px;
+            border: 4px solid rgba(255, 255, 255, 0.9);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        .auth-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            color: var(--brand-1);
+            margin: 0 0 1rem;
+            text-shadow: 0 0 15px rgba(255, 143, 171, 0.5);
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .auth-tab {
+            padding: 8px 16px;
+            border: none;
+            background: rgba(197, 169, 255, 0.2);
+            color: var(--brand-2);
+            border-radius: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .auth-tab.active {
+            background: var(--brand-2);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .auth-form input {
+            padding: 12px 16px;
+            border: 2px solid rgba(197, 169, 255, 0.5);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .auth-form input:focus {
+            border-color: var(--brand-2);
+        }
+
+        .auth-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--brand-1), #ffb2ca);
+            color: white;
+            font-family: 'Fredoka One', cursive;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #e87b9b;
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        .auth-btn:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 #e87b9b;
+        }
+
+        .auth-message {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 13px;
+            color: #ff8fab;
+        }
+
+        .form-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .form-footer a {
+            color: var(--brand-2);
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        /* ===== 表单元素 ===== */
+        .form-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-group input[type="radio"],
+        .form-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+        }
+
+        .form-group select {
+            padding: 10px;
+            border: 2px solid rgba(197, 169, 255, 0.5);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+        }
+
+        .form-group input[type="date"],
+        .form-group input[type="time"] {
+            padding: 10px;
+            border: 2px solid rgba(197, 169, 255, 0.5);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .auth-title {
+                font-size: 1.5rem;
+            }
+
+            .auth-form input {
+                font-size: 14px;
+            }
+
+            .auth-btn {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <h2 class="auth-title">🐾 登录 / 注册</h2>
+        <div class="auth-tabs">
+            <button class="auth-tab active" data-tab="login">登录</button>
+            <button class="auth-tab" data-tab="register">注册</button>
+        </div>
+
+        <!-- 登录表单 -->
+        <form id="login-form" class="auth-form">
+            <input type="text" id="login-username" placeholder="用户名" required autocomplete="username" />
+            <input type="password" id="login-password" placeholder="密码" required autocomplete="current-password" />
+            <button type="submit" class="auth-btn">登录</button>
+        </form>
+
+        <!-- 注册表单 -->
+        <form id="register-form" class="auth-form" style="display:none;">
+            <input type="text" id="reg-username" placeholder="设置用户名" required autocomplete="username" />
+            <input type="password" id="reg-password" placeholder="设置密码" required autocomplete="new-password" />
+            <input type="password" id="reg-confirm" placeholder="确认密码" required />
+            <div class="form-group">
+                <label for="reg-gender">性别:</label>
+                <input type="radio" id="reg-gender-male" name="gender" value="male" checked>
+                <label for="reg-gender-male">男</label>
+                <input type="radio" id="reg-gender-female" name="gender" value="female">
+                <label for="reg-gender-female">女</label>
+            </div>
+            <div class="form-group">
+                <label for="reg-birthday">生日:</label>
+                <input type="date" id="reg-birthday" name="birthday">
+            </div>
+            <div class="form-group">
+                <label for="reg-interests">兴趣:</label>
+                <div>
+                    <input type="checkbox" id="interest-cat" name="interests" value="cat">
+                    <label for="interest-cat">猫咪</label>
+                    <input type="checkbox" id="interest-game" name="interests" value="game">
+                    <label for="interest-game">游戏</label>
+                    <input type="checkbox" id="interest-music" name="interests" value="music">
+                    <label for="interest-music">音乐</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="reg-country">国家:</label>
+                <select id="reg-country" name="country">
+                    <option value="">请选择</option>
+                    <option value="CN">中国</option>
+                    <option value="US">美国</option>
+                    <option value="UK">英国</option>
+                </select>
+            </div>
+            <button type="submit" class="auth-btn">注册账号</button>
+        </form>
+
+        <p id="auth-message" class="auth-message"></p>
+
+        <div class="form-footer">
+            <a href="index.html">返回首页</a>
+        </div>
+    </div>
+
+    <script>
+        // ===== 切换登录/注册标签 =====
+        const tabs = document.querySelectorAll('.auth-tab');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const messageEl = document.getElementById('auth-message');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const target = tab.dataset.tab;
+                loginForm.style.display = target === 'login' ? 'flex' : 'none';
+                registerForm.style.display = target === 'register' ? 'flex' : 'none';
+                messageEl.textContent = '';
+            });
+        });
+
+        // ===== 模拟用户存储 =====
+        let users = JSON.parse(localStorage.getItem('gameUsers') || '[]');
+
+        // ===== 注册 =====
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('reg-username').value.trim();
+            const password = document.getElementById('reg-password').value;
+            const confirm = document.getElementById('reg-confirm').value;
+
+            if (password !== confirm) {
+                showMessage('两次密码不一致！', true);
+                return;
+            }
+
+            if (users.some(u => u.username === username)) {
+                showMessage('用户名已存在！', true);
+                return;
+            }
+
+            // 获取其他表单数据
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const birthday = document.getElementById('reg-birthday').value;
+            const interests = Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(el => el.value);
+            const country = document.getElementById('reg-country').value;
+
+            // 创建用户对象
+            const newUser = {
+                username,
+                password,
+                gender,
+                birthday,
+                interests,
+                country,
+                createdAt: new Date().toISOString()
+            };
+
+            users.push(newUser);
+            localStorage.setItem('gameUsers', JSON.stringify(users));
+            showMessage('注册成功！请登录。', false);
+
+            // 自动切换到登录
+            tabs[0].click();
+            registerForm.reset();
+        });
+
+        // ===== 登录 =====
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value;
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                showMessage('登录成功！正在跳转...', false);
+                setTimeout(() => {
+                    // 模拟登录成功，跳转到游戏页面
+                    window.location.href = 'game.html';
+                }, 1000);
+            } else {
+                showMessage('用户名或密码错误！', true);
+            }
+        });
+
+        function showMessage(text, isError) {
+            messageEl.textContent = text;
+            messageEl.style.color = isError ? '#ff8fab' : '#a8e6cf';
+        }
+    </script>
+</body>
+</html>
